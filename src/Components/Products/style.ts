@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const ContainerShelf = styled.div`
   max-width: 1200px;
   margin: 20px auto 0;
+  height: 470px;
 `
 
 export const TitleContainerShelf = styled.h1`
