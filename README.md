@@ -2,9 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Passo-a-passo para iniciar a aplicação em modo de desenvolvimento. Partindo da raiz do projeto execute os seguintes comandos:
 
-In the project directory, you can run:
+Para poder instalar todos os pacotes de dependências .\
+
+### `yarn install`
 
 ### `yarn start`
 
