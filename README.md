@@ -4,9 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Passo-a-passo para iniciar a aplicação em modo de desenvolvimento. Partindo da raiz do projeto execute os seguintes comandos:
 
-Para poder instalar todos os pacotes de dependências .\
-
 ### `yarn install`
+
+Para poder instalar todos os pacotes de dependências.\
 
 ### `yarn start`
 
