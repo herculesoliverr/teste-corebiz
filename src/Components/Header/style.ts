@@ -8,6 +8,24 @@ background-color: #fff;
 display: flex;
 justify-content: center;
 align-items: center;
+position: relative;
+
+.formSearchMobile{
+  display: none;
+}
+
+@media(max-width: 768px){
+  height: 120px;
+
+  .formSearchDesktop{
+    display: none;
+  }
+  .formSearchMobile{
+    position: absolute;
+    bottom: 10px;
+    width: 95%;
+  }
+}
 `
 export const HeaderItens = styled.div`
 width: 60%;
@@ -15,6 +33,9 @@ display: flex;
 align-items: flex-end;
 justify-content: space-between;
 
+.iconMenu{
+  display: none;
+}
 .LogoCorebiz{
   height: 41px;
 }
@@ -23,6 +44,22 @@ justify-content: space-between;
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+
+@media(max-width: 768px){
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  width: 95%;
+
+  .LogoCorebiz{
+    height: 30px;
+  }
+  .iconMenu{
+    display: block;
+    padding-bottom: 5px;
+  }
 }
 `
 
@@ -39,6 +76,11 @@ gap: 10px;
   line-height: 18px;
   color: #7A7A7A;
 }
+
+@media(max-width: 768px){
+  display: none;
+}
+
 `
 
 export const FormSearch = styled.form`
@@ -60,6 +102,12 @@ export const FormSearch = styled.form`
   outline: none;
   border-bottom: 1px solid #7A7A7A;
 }
+
+@media(max-width: 768px){
+  display: flex;
+  flex-direction: column;
+}
+
 `
 
 export const Cart = styled.div`

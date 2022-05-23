@@ -9,6 +9,7 @@ import {
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import StarRatings from 'react-star-ratings'
+import { useCartContext } from '../../Contexts/CartContext/CartContext.provider'
 
 interface InstallmentsProps {
   quantity: number
@@ -17,6 +18,8 @@ interface InstallmentsProps {
 
 function Products() {
   const [data, setData] = useState([])
+  const { cartContextDispatch } = useCartContext()
+
   useEffect(() => {
     ;(async () => {
       const response = await Api.get('/products')
@@ -40,6 +43,39 @@ function Products() {
         installments[0].quantity
       }x de ${formatPrice(installments[0].value)}`}</p>
     )
+  }
+
+  const handleComprar = (product: any) => {
+    let cartValue = localStorage.getItem('cart')
+    if (cartValue) {
+      let jsonCart = JSON.parse(cartValue)
+
+      console.log(jsonCart)
+
+      let cartAdd = {
+        qtd: jsonCart!.qtd + 1,
+        products: [...jsonCart.products, product]
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cartAdd))
+
+      cartContextDispatch({
+        payload: cartAdd,
+        type: 'addCart'
+      })
+    } else {
+      let cartAdd = {
+        qtd: 1,
+        products: [product]
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cartAdd))
+
+      cartContextDispatch({
+        payload: cartAdd,
+        type: 'addCart'
+      })
+    }
   }
 
   return (
@@ -76,7 +112,12 @@ function Products() {
                 {renderDiscount(product.listPrice)}
                 <p className="priceProduct">por {formatPrice(product.price)}</p>
                 {renderPriceSplit(product.installments)}
-                <button className="buttonBuy">Comprar</button>
+                <button
+                  className="buttonBuy"
+                  onClick={() => handleComprar(product)}
+                >
+                  Comprar
+                </button>
               </div>
             </div>
           )

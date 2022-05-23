@@ -8,6 +8,20 @@ export const ContainerNewsletter = styled.div`
   justify-content: center;
   align-items: center;
 
+  .containerInput {
+    display: flex;
+    flex-direction: column;
+
+    .errorMessage {
+      color: red;
+      margin-top: 5px;
+    }
+  }
+
+  .inputError {
+    border: 1px solid red;
+  }
+
   .titleNewsletter{
     font-style: normal;
     font-weight: 700;
@@ -58,19 +72,46 @@ export const ContainerNewsletter = styled.div`
     cursor: pointer;
   }
 
+  .containerSubmited{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .titleSubmited{
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 14px;
+    }
+
+    .textSubmited{
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 12px;
+    }
+
+    .buttonSubmited{
+      margin-top: 20px;
+      width: 300px;
+    }
+  }
+
   @media (max-width: 768px){
     height: auto;
     padding: 30px 0;
-
-    .formNewsletter{
-      flex-direction: column; 
-      padding: 0;
 
     .titleNewsletter{
       width: 280px;
       text-align: left;
       font-size: 20px;
     }
+
+    .formNewsletter{
+      flex-direction: column; 
+      padding: 0;
+
 
       input{
         margin: 10px 0 !important;

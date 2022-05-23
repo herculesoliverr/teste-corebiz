@@ -4,6 +4,7 @@ import { ContainerNewsletter } from './style'
 
 interface IFormValueProps {
   value: string
+  key: string
   error: boolean
   errorMessage: string
 }
@@ -21,14 +22,18 @@ function Newsletter() {
     email: {
       error: false,
       errorMessage: '',
-      value: ''
+      value: '',
+      key: 'email'
     },
     name: {
       error: false,
       errorMessage: '',
-      value: ''
+      value: '',
+      key: 'name'
     }
   })
+
+  const [formSubmited, setFormSubmited] = useState<boolean>(false)
 
   const handleUpdateFormValue = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +48,7 @@ function Newsletter() {
           ...oldValue,
           [name]: {
             ...oldValue[name],
-            value
+            value: value
           }
         }
       })
@@ -52,48 +57,127 @@ function Newsletter() {
   )
 
   const validateForm = (form: IFormState): boolean => {
-    if (!form.email.value || !form.name.value) return false
+    let errorValue = false
 
-    if (!REGEXVALIDATEEMAIL.test(form.email.value)) return false
+    Object.values(form).forEach((objectValue: IFormValueProps) => {
+      if (objectValue.value === '' || !objectValue.value) {
+        setFormState((oldValue: IFormState) => {
+          return {
+            ...oldValue,
+            [objectValue.key]: {
+              ...oldValue[objectValue.key],
+              error: true,
+              errorMessage: 'Campo obrigatório.' + objectValue.key
+            }
+          }
+        })
+
+        errorValue = true
+      }
+    })
+
+    if (errorValue) return errorValue
+
+    if (!REGEXVALIDATEEMAIL.test(form.email.value)) {
+      setFormState((oldValue: IFormState) => {
+        return {
+          ...oldValue,
+          email: {
+            ...oldValue.email,
+            error: true,
+            errorMessage: 'E-mail inválido.'
+          }
+        }
+      })
+
+      return false
+    }
 
     return true
   }
 
-  const handleSubmit = useCallback(async (e: FormEvent) => {
-    e.preventDefault()
-    if (!validateForm(formState)) return
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault()
 
-    const response = await Api.post('newsletter', {
-      email: formState.email.value,
-      name: formState.name.value
-    })
-  }, [])
+      if (!validateForm(formState)) return
+
+      const response = await Api.post('newsletter', {
+        email: formState.email.value,
+        name: formState.name.value
+      })
+
+      console.log(response)
+
+      if (response) {
+        setFormSubmited(true)
+      }
+    },
+    [formState]
+  )
 
   return (
     <ContainerNewsletter>
-      <div>
-        <form action="" onSubmit={handleSubmit} className="formNewsletter">
+      {formSubmited ? (
+        <div className="containerSubmited">
+          <p className="titleSubmited">Seu e-mail foi cadastrado com sucesso</p>
+          <p className="textSubmited">
+            A partir de agora você receberá as novidade e ofertas exclusivas.
+          </p>
+          <button className="buttonSubmited">Cadastrar novo e-mail</button>
+        </div>
+      ) : (
+        <div>
           <h3 className="titleNewsletter">
             Participe de nossas news com promoções e novidades!
           </h3>
-          <input
-            type="text"
-            name="name"
-            value={formState.name.value}
-            onChange={handleUpdateFormValue}
-            id="name"
-            placeholder="Digite seu nome"
-          />
-          <input
-            type="email"
-            value={formState.email.value}
-            name="email"
-            onChange={handleUpdateFormValue}
-            placeholder="Digite seu email"
-          />
-          <button type="submit">Eu quero</button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit} className="formNewsletter">
+            <div className="containerInput">
+              <input
+                type="text"
+                className={`${formState.name.error ? 'inputError' : ''}`}
+                name="name"
+                value={formState.name.value}
+                onChange={handleUpdateFormValue}
+                id="name"
+                placeholder="Digite seu nome"
+              />
+              {formState.name.error ? (
+                <small className="errorMessage">
+                  {formState.name.errorMessage}
+                </small>
+              ) : (
+                false
+              )}
+            </div>
+            <div className="containerInput">
+              <input
+                type="email"
+                className={`${formState.name.error ? 'inputError' : ''}`}
+                value={formState.email.value}
+                name="email"
+                onChange={handleUpdateFormValue}
+                placeholder="Digite seu email"
+              />
+              {formState.email.error ? (
+                <small className="errorMessage">
+                  {formState.email.errorMessage}
+                </small>
+              ) : (
+                false
+              )}
+            </div>
+            <button
+              disabled={
+                formState.email.error || formState.name.error ? true : false
+              }
+              type="submit"
+            >
+              Eu quero
+            </button>
+          </form>
+        </div>
+      )}
     </ContainerNewsletter>
   )
 }
