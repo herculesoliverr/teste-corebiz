@@ -19,6 +19,15 @@ export const ContainerFooter = styled.div`
     align-items: center;
     margin-top: 20px;
   }
+
+  @media(max-width: 768px){
+    height: auto;
+    background-color: #000;
+    padding-bottom: 50px;
+    .mainGrid{
+      grid-template-columns: 1fr;
+    }
+  }
 `
 
 export const ContainerAddress = styled.div`

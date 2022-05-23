@@ -58,4 +58,24 @@ export const ContainerNewsletter = styled.div`
     cursor: pointer;
   }
 
+  @media (max-width: 768px){
+    height: auto;
+    padding: 30px 0;
+
+    .formNewsletter{
+      flex-direction: column; 
+      padding: 0;
+
+    .titleNewsletter{
+      width: 280px;
+      text-align: left;
+      font-size: 20px;
+    }
+
+      input{
+        margin: 10px 0 !important;
+      }
+    }
+  }
+
 `
