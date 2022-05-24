@@ -6,7 +6,6 @@ import {
   TitleContainerShelf,
   ContainerShelfProducts
 } from './style'
-import { Carousel } from 'react-responsive-carousel'
 import StarRatings from 'react-star-ratings'
 import { useCartContext } from '../../Contexts/CartContext/CartContext.provider'
 
