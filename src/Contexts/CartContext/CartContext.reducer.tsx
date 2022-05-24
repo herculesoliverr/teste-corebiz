@@ -1,8 +1,7 @@
-import { InitialDataCartContext } from './CartContext.initialData'
 import {
   FildNameType,
   InitialDataCartContextType,
-  ReducerTypeAction,
+  ReducerTypeAction
 } from './CartContext.interfaces'
 
 export type ActionTypeReducer = {

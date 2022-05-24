@@ -67,7 +67,7 @@ function Newsletter() {
             [objectValue.key]: {
               ...oldValue[objectValue.key],
               error: true,
-              errorMessage: 'Campo obrigatório.' + objectValue.key
+              errorMessage: 'Campo obrigatório ' + objectValue.key
             }
           }
         })
