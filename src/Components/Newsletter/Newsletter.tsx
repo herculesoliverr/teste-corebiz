@@ -7,6 +7,7 @@ interface IFormValueProps {
   key: string
   error: boolean
   errorMessage: string
+  label: string
 }
 interface IFormState {
   [key: string]: any
@@ -15,7 +16,7 @@ interface IFormState {
 }
 
 const REGEXVALIDATEEMAIL =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+  /^[a-zA-Z0-9.!#$%&'+/=?^`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/
 
 function Newsletter() {
   const [formState, setFormState] = useState<IFormState>({
@@ -23,13 +24,15 @@ function Newsletter() {
       error: false,
       errorMessage: '',
       value: '',
-      key: 'email'
+      key: 'email',
+      label: 'e-mail'
     },
     name: {
       error: false,
       errorMessage: '',
       value: '',
-      key: 'name'
+      key: 'name',
+      label: 'nome'
     }
   })
 
@@ -67,7 +70,7 @@ function Newsletter() {
             [objectValue.key]: {
               ...oldValue[objectValue.key],
               error: true,
-              errorMessage: 'Campo obrigatório ' + objectValue.key
+              errorMessage: 'Campo obrigatório ' + objectValue.label
             }
           }
         })
@@ -85,7 +88,7 @@ function Newsletter() {
           email: {
             ...oldValue.email,
             error: true,
-            errorMessage: 'E-mail inválido.'
+            errorMessage: 'Preencha com um e-mail válido.'
           }
         }
       })
@@ -106,8 +109,6 @@ function Newsletter() {
         email: formState.email.value,
         name: formState.name.value
       })
-
-      console.log(response)
 
       if (response) {
         setFormSubmited(true)

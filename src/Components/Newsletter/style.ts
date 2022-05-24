@@ -10,11 +10,15 @@ export const ContainerNewsletter = styled.div`
 
   .containerInput {
     display: flex;
+    position: relative;
     flex-direction: column;
 
     .errorMessage {
       color: red;
-      margin-top: 5px;
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+
     }
   }
 
@@ -101,6 +105,15 @@ export const ContainerNewsletter = styled.div`
   @media (max-width: 768px){
     height: auto;
     padding: 30px 0;
+
+
+    .containerInput {
+      margin-bottom: 15px;
+
+      .errorMessage {
+        position: initial !important;
+      }
+    }
 
     .titleNewsletter{
       width: 280px;
