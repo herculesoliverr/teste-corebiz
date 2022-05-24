@@ -80,7 +80,6 @@ function Products() {
     <ContainerShelf>
       <TitleContainerShelf>Mais Vendidos</TitleContainerShelf>
       <ContainerShelfProducts>
-        {/* <Carousel showStatus={false} centerMode={true}> */}
         {data.map((product: any) => {
           return (
             <div className="productItem" key={product.productId}>
@@ -120,7 +119,6 @@ function Products() {
             </div>
           )
         })}
-        {/* </Carousel> */}
       </ContainerShelfProducts>
     </ContainerShelf>
   )
